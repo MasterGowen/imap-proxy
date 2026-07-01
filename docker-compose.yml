@@ -6,13 +6,13 @@ services:
     container_name: imap-proxy
     restart: unless-stopped
     ports:
-      # КРИТИЧНО: только 127.0.0.1 — порт не выходит наружу,
-      # доступен только для SSH-туннеля и локальных потребителей в Docker-сети
       - "127.0.0.1:10993:10993"
     volumes:
       - ./haproxy.cfg:/usr/local/etc/haproxy/haproxy.cfg:ro
     networks:
       - platform_network
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
     labels:
       - "platform.managed=true"
       - "platform.service=imap-proxy"
@@ -22,7 +22,7 @@ services:
       resources:
         limits:
           memory: 64M
-          cpus: 0.1
+          cpus: '0.1'
 
 networks:
   platform_network:
