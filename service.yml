@@ -3,6 +3,8 @@ name: imap-proxy
 display_name: "IMAP Proxy (SSH Tunnel)"
 version: "1.0.0"
 description: "HAProxy для проброса IMAP-трафика из SSH-туннеля в Docker-сеть"
+maintainer: "mastergowen@gmail.com"
+repository: "https://github.com/mastergowen/imap-proxy"
 type: docker-compose
 visibility: internal
 

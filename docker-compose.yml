@@ -13,8 +13,18 @@ services:
       - ./haproxy.cfg:/usr/local/etc/haproxy/haproxy.cfg:ro
     networks:
       - platform_network
-    # Подключение к платформенной сети — для резолва mail-container
+    labels:
+      - "platform.managed=true"
+      - "platform.service=imap-proxy"
+      - "platform.version=1.0.0"
+      - "platform.visibility=internal"
+    deploy:
+      resources:
+        limits:
+          memory: 64M
+          cpus: 0.1
 
 networks:
   platform_network:
     external: true
+    name: platform_network
