@@ -1,0 +1,20 @@
+version: '3.8'
+
+services:
+  imap-proxy:
+    image: haproxy:2.8-alpine
+    container_name: imap-proxy
+    restart: unless-stopped
+    ports:
+      # КРИТИЧНО: только 127.0.0.1 — порт не выходит наружу,
+      # доступен только для SSH-туннеля и локальных потребителей в Docker-сети
+      - "127.0.0.1:10993:10993"
+    volumes:
+      - ./haproxy.cfg:/usr/local/etc/haproxy/haproxy.cfg:ro
+    networks:
+      - platform_network
+    # Подключение к платформенной сети — для резолва mail-container
+
+networks:
+  platform_network:
+    external: true

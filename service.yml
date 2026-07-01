@@ -1,0 +1,19 @@
+# service.yml
+name: imap-proxy
+display_name: "IMAP Proxy (SSH Tunnel)"
+version: "1.0.0"
+description: "HAProxy для проброса IMAP-трафика из SSH-туннеля в Docker-сеть"
+type: docker-compose
+visibility: internal
+
+# routing намеренно отсутствует: Caddy не умеет проксировать сырой TCP/TLS.
+# Порт публикуется средствами Docker (см. docker-compose.yml).
+
+health:
+  enabled: false  # HTTP healthcheck для TCP-прокси бессмыслен
+
+tags:
+  - mail
+  - proxy
+  - ssh-tunnel
+  - tcp
